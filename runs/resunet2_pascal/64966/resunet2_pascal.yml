@@ -1,0 +1,59 @@
+model:
+    arch: resunet2
+data:
+    dataset: pascal
+    train_split: train_aug
+    val_split: val
+    img_rows: 512
+    img_cols: 512
+    #D:\New Student\Data Mining\Project\VOCtrainval_11-May-2012\VOC2012
+    #path: /private/home/meetshah/datasets/VOC/060817/VOCdevkit/VOC2012/
+    path: D:/New Student/Data Mining/Project/VOCtrainval_11-May-2012/VOC2012/
+#    sbd_path: D:/New Student/Data Mining/Project/benchmark/benchmark_RELEASE/
+training:
+    n_workers: 4
+    train_iters: 300000
+    batch_size: 8
+    val_interval: 5000
+    print_interval: 50
+    optimizer:
+#        name: 'rmsprop'
+        name: 'sgd'
+#        name: 'adamax'
+#        name: 'adam'
+        lr: 1.0e-3
+#        weight_decay: 0.0005
+        weight_decay: 0.0005
+#        momentum: 0.99
+    loss:
+        name: 'cross_entropy'
+        size_average: True
+    # Augmentations Configuration
+    augmentations:
+#        gamma: 0.2                                     #[gamma varied in 1 to 1+x]
+#        hue: 0.2                                       #[hue varied in -x to x]
+#        brightness: 0.2                               #[brightness varied in 1-x to 1+x]
+#        saturation: 0.2                                #[saturation varied in 1-x to 1+x]
+#        contrast: 0.2                                  #[contrast varied in 1-x to 1+x]
+#        rcrop: [30, 30]                                #[crop of size (h,w)]
+#        translate: [dh, dw]                          #[reflective translation by (dh, dw)]
+#        rotate: 6                                   #[rotate -d to d degrees]
+#        scale: [h,w]                                 #[scale to size (h,w)]
+#        ccrop: [h,w]                                 #[center crop of (h,w)]
+#        hflip: 0.5                                     #[flip horizontally with chance p]
+#        vflip: 0.5                                     #[flip vertically with chance p]
+
+    lr_schedule:
+#        name: 'reducelronplateau'
+#        patience: 30
+#        min_lr: 1e-07
+#        verbose: True
+#        name: 'poly_lr'
+#        max_iter: 240
+#        name: 'cosine_annealing'
+#        T_max: 100
+         name: 'multi_step'
+         milestones: [30,70,150]
+#         name: 'exp_lr'
+#         gamma: 0.96
+    resume: resunet2_pascal_best_model.pkl
